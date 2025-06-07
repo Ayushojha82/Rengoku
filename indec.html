@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RENGOKU.TO - Watch Anime</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+      color: #222;
+    }
+    header {
+      background-color: #ff3c00;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      color: white;
+      font-size: 32px;
+      margin: 0;
+    }
+    header h1 span {
+      color: #ffd000;
+    }
+    header input {
+      width: 50%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 16px;
+    }
+    nav {
+      background-color: #ff6a00;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 15px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      margin: 0 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .hero {
+      background: url('https://wallpapercave.com/wp/wp5963902.jpg') center/cover no-repeat;
+      height: 350px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero h2 {
+      background: rgba(255, 255, 255, 0.85);
+      padding: 20px;
+      font-size: 30px;
+      color: #d60000;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+    }
+    .anime-section {
+      padding: 40px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+    }
+    .anime-section.hidden {
+      display: none;
+    }
+    .anime-card {
+      display: flex;
+      gap: 20px;
+      max-width: 900px;
+    }
+    .anime-card img {
+      width: 300px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(255, 102, 0, 0.4);
+    }
+    .content {
+      max-width: 600px;
+    }
+    .content h2 {
+      color: #ff3c00;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .content p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #333;
+    }
+    .watch-button {
+      display: inline-block;
+      margin-top: 20px;
+      background: #ff3c00;
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      box-shadow: 0 0 10px rgba(255, 60, 0, 0.4);
+    }
+    footer {
+      background-color: #ffd000;
+      color: #111;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>RENGOKU.<span>TO</span></h1>
+    <input type="text" id="searchInput" placeholder="Search Anime..." oninput="searchAnime()" />
+  </header>
+
+  <nav>
+    <strong>Genres:</strong>
+    <button onclick="filterGenre('All')">All</button>
+    <button onclick="filterGenre('Action')">Action</button>
+    <button onclick="filterGenre('Adventure')">Adventure</button>
+    <button onclick="filterGenre('Romance')">Romance</button>
+    <button onclick="filterGenre('Horror')">Horror</button>
+    <button onclick="filterGenre('Fantasy')">Fantasy</button>
+  </nav>
+
+  <section class="hero">
+    <h2>🔥 Start Your Anime Journey with One Piece</h2>
+  </section>
+
+  <!-- Adsterra Banner Ad -->
+  <div style="text-align:center; margin: 20px auto;">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '5d090f2a3cec6a881f4eb76dac97b1dd',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.profitabledisplaynetwork.com/5d090f2a3cec6a881f4eb76dac97b1dd/invoke.js"></script>
+  </div>
+
+  <div id="animeContainer">
+    <!-- Anime cards will be injected here by JavaScript -->
+  </div>
+
+  <footer>
+    © 2025 RENGOKU.TO | Created for Real Anime Fans ❤️‍🔥
+  </footer>
+
+  <script>
+    const animeList = [
+       {
+      title: "Demon Slayer (Kimetsu no Yaiba)",
+      description: "Tanjiro fights demons to save his sister and avenge his family. Stunning animation and heartwarming story.",
+      image: "https://th.bing.com/th/id/OIP.RMQhocm_Zx0g7crHtZ2CjgHaJR?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/demon-slayer-kimetsu-no-yaiba-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Jujutsu Kaisen Season 1",
+      description: "Yuji fights curses in a world filled with magic and monsters. Fast-paced action with emotional depth.",
+      image: "https://th.bing.com/th/id/OIP.arwgRHgH9gWW9H5liZtQHQHaLH?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/jujutsu-kaisen-episode-1/",
+      genres: ["Action", "Horror", "Fantasy"]
+    },
+    {
+      title: "Attack on Titan (Shingeki no Kyojin)",
+      description: "Eren and friends fight Titans threatening humanity's survival in this intense, brutal anime.",
+      image: "https://th.bing.com/th/id/OIP.AIRWrqrKk8x4AFjiU6G76AHaFj?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/attack-on-titan-episode-1/",
+      genres: ["Action", "Horror", "Fantasy"]
+    },
+    {
+      title: "Naruto Shippuden",
+      description: "Naruto's journey to become Hokage continues with more battles, friends, and epic moments.",
+      image: "https://fr.web.img6.acsta.net/pictures/19/08/07/09/32/1958909.jpg",
+      link: "https://9anime.org.lv/naruto-shippuden-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "One Piece",
+      description: "Join Luffy and his crew on a grand adventure in search of the legendary treasure, One Piece.",
+      image: "https://th.bing.com/th/id/OIP.9YwNz70B17oER1fuhuIDhwHaFb?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/one-piece-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "My Hero Academia",
+      description: "In a world of heroes, young Izuku fights to become the greatest hero.",
+      image: "https://th.bing.com/th/id/OIP.Qvm-zq5rnud4gqM92M9z0QHaKk?o=7rm=3&rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/my-hero-academia-episode-1/",
+      genres: ["Action", "Adventure"]
+    },
+    {
+      title: "Dragon Ball Z",
+      description: "Goku defends Earth against powerful foes in legendary battles full of energy and spirit.",
+      image: "https://th.bing.com/th/id/OIP.y98pzXfgUSy73XfnfFUwBgHaLH?o=7rm=3&rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/dragon-ball-z-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Fullmetal Alchemist: Brotherhood",
+      description: "Two brothers seek the Philosopher's Stone to restore their bodies in this epic alchemy saga.",
+      image: "https://th.bing.com/th/id/OIP.mTJzFdfcm7D9eeEcYJXWlAAAAA?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/fullmetal-alchemist-brotherhood-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Tokyo Revengers Season 1",
+      description: "Time travel and gang conflicts collide as Takemichi fights to save his friends.",
+      image: "https://th.bing.com/th/id/OIP.wasvqJezWrh7IyAUpvgE0wHaLH?o=7rm=3&rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/tokyo-revengers-episode-1/",
+      genres: ["Action", "Romance"]
+    },
+    {
+      title: "Chainsaw Man Season 1",
+      description: "Denji fights devils with a chainsaw in this dark and thrilling supernatural anime.",
+      image: "https://th.bing.com/th/id/OIP.C9m5VGuqClSuUaGkqfL8aAHaKv?o=7rm=3&rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/chainsaw-man-episode-1/",
+      genres: ["Action", "Horror"]
+    },
+    {
+      title: "Bleach",
+      description: "Ichigo becomes a Soul Reaper and fights evil spirits threatening the living world.",
+      image: "https://www.animefillerlist.com/sites/default/files/styles/anime_poster/public/img_0253.jpg?itok=QZa5Rmj2",
+      link: "https://9anime.org.lv/bleach-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Hunter x Hunter",
+      description: "Gon searches for his father while battling powerful foes in this adventure-filled anime.",
+      image: "https://picfiles.alphacoders.com/379/thumb-1920-379367.jpg",
+      link: "https://9anime.org.lv/hunter-x-hunter-2011-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Death Note",
+      description: "A deadly notebook falls into the hands of a genius, leading to a mind game with justice.",
+      image: "https://th.bing.com/th/id/R.59a7b29ea9fe2ca4e2212cf367067508?rik=z%2bZDlGS%2fF77cSw&riu=http%3a%2f%2fimages2.fanpop.com%2fimage%2fphotos%2f11200000%2fDEATH-NOTE-LO-MAS-l-death-note-y-mas-11253378-1682-2560.jpg&ehk=Dy9ehYJFtKMZ%2f6vKWj1hYUFQTSxNGcqy5mnX44U5wC0%3d&risl=&pid=ImgRaw&r=0",
+      link: "https://9anime.org.lv/death-note-episode-1/",
+      genres: ["Horror", "Mystery"]
+    },
+    {
+      title: "Black Clover",
+      description: "Asta fights against odds in a magical world to become the Wizard King.",
+      image: "https://images6.fanpop.com/image/photos/43700000/Black-Clover-black-clover-43715593-2048-1536.jpg",
+      link: "https://9anime.org.lv/black-clover-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Vinland Saga",
+      description: "Vikings, revenge, and epic battles in a historical drama anime.",
+      image: "https://th.bing.com/th/id/OIP.G4P6NqkXN14QRIHE1x4rAAHaKG?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/vinland-saga-episode-1/",
+      genres: ["Action", "Adventure", "Drama"]
+    },
+    {
+      title: "Sword Art Online",
+      description: "Players trapped in a virtual reality MMORPG fight for survival.",
+      image: "https://th.bing.com/th/id/OIP.ZardKuLsYFbA-IxXKd5XEQHaI-?o=7rm=3&rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/sword-art-online-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Demon Slayer: Entertainment District Arc",
+      description: "The next chapter of Tanjiro's fight against powerful demons.",
+      image: "https://i.pinimg.com/originals/78/03/4d/78034d7461fbab4418151b0907f917fe.jpg",
+      link: "https://9anime.org.lv/demon-slayer-entertainment-district-arc-episode-1/",
+      genres: ["Action", "Adventure", "Fantasy"]
+    },
+    {
+      title: "Jujutsu Kaisen Season 2",
+      description: "More battles and mysteries await Yuji and friends.",
+      image: "https://i.redd.it/23fabm16lzp91.jpg",
+      link: "https://9anime.org.lv/jujutsu-kaisen-2nd-season-episode-1/",
+      genres: ["Action", "Horror", "Fantasy"]
+    },
+    {
+      title: "Tokyo Revengers: Seiya Kessen-hen",
+      description: "Continuation of the Tokyo Revengers saga with intense battles.",
+      image: "https://th.bing.com/th/id/OIP.hFRIFwQaQ-RZ_qCYVSM-0gHaJQ?rs=1&pid=ImgDetMain",
+      link: "https://9anime.org.lv/tokyo-revengers-seiya-kessen-hen-episode-1/",
+      genres: ["Action", "Romance"]
+    },
+    ];
+
+    function renderAnimeList(filteredList) {
+      const container = document.getElementById("animeContainer");
+      container.innerHTML = "";
+      filteredList.forEach(anime => {
+        container.innerHTML += `
+          <section class="anime-section">
+            <div class="anime-card">
+              <img src="${anime.image}" alt="${anime.title}" />
+              <div class="content">
+                <h2>${anime.title}</h2>
+                <p>${anime.description}</p>
+                <a href="${anime.link}" target="_blank" class="watch-button">▶️ Watch Now</a>
+              </div>
+            </div>
+          </section>
+        `;
+      });
+    }
+
+    function filterGenre(genre) {
+      if (genre === "All") {
+        renderAnimeList(animeList);
+      } else {
+        const filtered = animeList.filter(anime => anime.genres.includes(genre));
+        renderAnimeList(filtered);
+      }
+    }
+
+    function searchAnime() {
+      const input = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = animeList.filter(anime => anime.title.toLowerCase().includes(input));
+      renderAnimeList(filtered);
+    }
+
+    // Initialize page
+    renderAnimeList(animeList);
+  </script>
+</body>
+</html>
